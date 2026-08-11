@@ -1,0 +1,218 @@
+/* ===========================
+   Global Styles
+=========================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0f172a;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+h2 {
+  margin: 30px 0 20px;
+  color: #38bdf8;
+}
+
+/* =====================================
+   Question 1 - Signal Metrics Dashboard
+===================================== */
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.metric-card {
+  background: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.parameter-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.status-light {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: limegreen;
+}
+
+/* Tablet */
+
+@media (min-width:768px) {
+
+.metrics-grid {
+  grid-template-columns: repeat(2,1fr);
+}
+
+}
+
+/* Desktop */
+
+@media (min-width:1024px) {
+
+.metrics-grid {
+  grid-template-columns: repeat(3,1fr);
+}
+
+}
+
+/* =====================================
+   Question 2 - Alert Feed
+===================================== */
+
+.alert-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* Desktop */
+
+@media (min-width:768px) {
+
+.alert-grid {
+  grid-template-columns: repeat(2,1fr);
+}
+
+}
+
+.alert-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #1e293b;
+  border: 2px solid #334155;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.badge {
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.critical {
+  background: crimson;
+  color: white;
+}
+
+.warning {
+  background: orange;
+  color: black;
+}
+
+.alert-info {
+  flex: 1;
+}
+
+.sensor-name {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.time {
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.alert-btn {
+  margin-left: auto;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.alert-btn:hover {
+  background: #1d4ed8;
+}
+
+/* =====================================
+   Question 3 - Sensor Matrix
+===================================== */
+
+.sensor-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+/* Tablet */
+
+@media (min-width:768px) {
+
+.sensor-grid {
+  grid-template-columns: repeat(2,1fr);
+}
+
+}
+
+/* Widescreen */
+
+@media (min-width:1280px) {
+
+.sensor-grid {
+  grid-template-columns: repeat(4,1fr);
+}
+
+}
+
+.sensor-card {
+  background: #111827;
+  border: 2px solid #374151;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.parameter {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.value-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.live-value {
+  font-family: monospace;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.unit {
+  background: #2563eb;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}

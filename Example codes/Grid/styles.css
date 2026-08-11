@@ -1,0 +1,48 @@
+.page {
+  font-family: Arial, sans-serif;
+  padding: 24px;
+  background-color: #f4f8fa;
+}
+
+.intro,
+.footnote {
+  color: #5b7c8d;
+  font-size: 14px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #1c7293;
+  margin: 24px 0 8px 0;
+}
+
+/* ============================================================
+   GRID CONTAINER — SignalDash dashboard
+   display: grid turns this div into a grid container.
+   grid-template-columns: 1fr 1fr creates exactly TWO equal-
+   width columns ("fr" = one fraction of the available space).
+   With 6 child cards and 2 columns, Grid automatically wraps
+   them into 3 rows — no row rule needed for this simple case.
+   gap adds even spacing between cards, both across and down.
+   ============================================================ */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ============================================================
+   GRID ITEM — each sensor card
+   These are just the children of the grid container. Grid
+   decides their position (which row, which column); this
+   class only styles their appearance.
+   ============================================================ */
+.grid-card {
+  background-color: #1c7293;
+  color: #ffffff;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 4px;
+}

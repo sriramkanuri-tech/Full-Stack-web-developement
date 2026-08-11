@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SignalDash Registration Lab</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+  <main class="flex min-h-screen items-center justify-center px-4 py-10">
+    <section class="w-full max-w-2xl rounded-3xl border border-slate-800 bg-slate-900/90 shadow-2xl shadow-cyan-950/30">
+      <div class="border-b border-slate-800 px-6 py-6 sm:px-8">
+        <p class="mb-2 inline-flex rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-cyan-300">25SC2008E • Skill Session 2</p>
+        <h1 class="text-3xl font-bold tracking-tight text-white">SignalDash Account Registration</h1>
+        <p class="mt-2 max-w-2xl text-sm text-slate-400">Register engineer credentials and assign station access to a telemetry node. Validation happens in real time before account creation.</p>
+      </div>
+
+      <form id="registrationForm" class="space-y-6 px-6 py-6 sm:px-8" novalidate>
+        <div>
+          <label for="fullName" class="mb-2 block text-sm font-medium text-slate-200">Full Name</label>
+          <input id="fullName" name="fullName" type="text" placeholder="Enter your full name" class="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20" />
+          <p id="fullNameError" class="mt-2 min-h-[1.25rem] text-sm text-rose-400"></p>
+        </div>
+
+        <div>
+          <label for="email" class="mb-2 block text-sm font-medium text-slate-200">Campus Email</label>
+          <input id="email" name="email" type="email" placeholder="name@campus.edu" class="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20" />
+          <p id="emailError" class="mt-2 min-h-[1.25rem] text-sm text-rose-400"></p>
+        </div>
+
+        <div>
+          <label for="password" class="mb-2 block text-sm font-medium text-slate-200">Security Key (Password)</label>
+          <input id="password" name="password" type="password" placeholder="At least 8 characters and one number" class="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20" />
+          <p id="passwordError" class="mt-2 min-h-[1.25rem] text-sm text-rose-400"></p>
+        </div>
+
+        <div>
+          <label for="assignedNode" class="mb-2 block text-sm font-medium text-slate-200">Assigned Telemetry Node</label>
+          <select id="assignedNode" name="assignedNode" class="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20">
+            <option value="">Select a telemetry node</option>
+            <option value="Weather Station">Weather Station</option>
+            <option value="RF Spectrum Pod">RF Spectrum Pod</option>
+            <option value="Solar Array Grid">Solar Array Grid</option>
+            <option value="Hydro Sensor Relay">Hydro Sensor Relay</option>
+          </select>
+          <p id="assignedNodeError" class="mt-2 min-h-[1.25rem] text-sm text-rose-400"></p>
+        </div>
+
+        <button type="submit" class="inline-flex w-full items-center justify-center rounded-2xl bg-cyan-500 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:ring-offset-2 focus:ring-offset-slate-900">
+          Register Station Access
+        </button>
+
+        <div id="formStatus" class="hidden rounded-2xl border px-4 py-3 text-sm font-medium"></div>
+      </form>
+    </section>
+  </main>
+
+  <script src="validator.js"></script>
+</body>
+</html>

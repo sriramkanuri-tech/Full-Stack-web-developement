@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 24px;
+  background-color: #f4f8fa;
+}
+
+/* ============================================================
+   The .card div — by default, a div is just an invisible box
+   the width of its container. It only LOOKS like a "card"
+   because of the CSS we add: background, padding, border.
+   ============================================================ */
+.card {
+  width: 220px;
+  background-color: #ffffff;
+  border: 2px solid #0b3d5c;
+  padding: 16px;
+}
+
+.sensor-info {
+  /* this div has no visual style at all — it's purely
+     here to GROUP the name and value together */
+}
+
+.sensor-name {
+  font-size: 14px;
+  color: #16303f;
+}
+
+.sensor-value {
+  font-size: 22px;
+  font-weight: bold;
+  color: #f0a500;
+}
+
+/* ============================================================
+   The .row div — three .box divs placed inside it.
+   By default, divs stack one under another (block elements).
+   display: flex is what makes them sit side by side instead.
+   ============================================================ */
+.row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.box {
+  background-color: #1c7293;
+  color: #ffffff;
+  padding: 14px;
+  text-align: center;
+  width: 120px;
+}

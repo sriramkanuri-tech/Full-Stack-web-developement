@@ -1,0 +1,74 @@
+.page {
+  font-family: Arial, sans-serif;
+  padding: 24px;
+  background-color: #f4f8fa;
+}
+
+.intro,
+.footnote {
+  color: #5b7c8d;
+  font-size: 14px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #1c7293;
+  margin: 24px 0 8px 0;
+}
+
+/* ============================================================
+   ROW EXAMPLE — Navigation menu
+   display: flex turns this div into a flex container.
+   flex-direction: row lays its children out left to right
+   (this is also the default, so it could be omitted — it's
+   written here to make the direction explicit).
+   justify-content spaces the items evenly across the bar.
+   ============================================================ */
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #0b3d5c;
+  padding: 12px 20px;
+}
+
+.nav-item {
+  margin: 0;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+/* ============================================================
+   COLUMN EXAMPLE — Sensor card
+   flex-direction: column stacks the same kind of items
+   vertically instead of horizontally. Everything else about
+   Flexbox — spacing, alignment — still applies, just along
+   the vertical axis now.
+   ============================================================ */
+.sensor-card {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  background-color: #ffffff;
+  border: 2px solid #cfe3ea;
+  padding: 16px;
+}
+
+.sensor-name {
+  margin: 0;
+  font-size: 14px;
+}
+
+.sensor-value {
+  margin: 6px 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #f0a500;
+}
+
+.sensor-status {
+  margin: 0;
+  font-size: 12px;
+  color: #1c7293;
+}

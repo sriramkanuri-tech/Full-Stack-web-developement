@@ -1,0 +1,94 @@
+Lab exercise sheet 
+
+---
+
+# 🛠️ Skill Session 2: Practical Lab Exercise
+
+**Course Code:** 25SC2008E — Full Stack Web Development
+
+**Topic:** Interactive Registration Form & Client-Side JavaScript Validation
+
+**Estimated Duration:** 90 Minutes
+
+---
+
+### 📌 Problem Statement
+
+Before an engineer can access live sensor telemetry streams on the **SignalDash** platform, they must register their credentials and assign their profile to a specific hardware telemetry node.
+
+Your task is to build an interactive **Account Registration Interface** and write a vanilla JavaScript validation engine to verify user input in real-time *before* allowing account creation.
+
+---
+
+### 📋 Requirements & Specifications
+
+#### **Part A: HTML/Tailwind Structure (`register.html`)**
+
+Construct a clean registration form that includes:
+
+1. **Full Name Input:** Standard text field.
+2. **Campus Email Input:** Email input field.
+3. **Security Key (Password) Input:** Password input field.
+4. **Assigned Telemetry Node Select Dropdown:** Containing at least 3 node options (e.g., *Weather Station*, *RF Spectrum Pod*, *Solar Array Grid*).
+5. **Submit Button:** Labeled "Register Station Access".
+6. **Dynamic Error & Status Messaging:** Small text containers beneath each input field to display specific error alerts, along with a global status box at the bottom of the form.
+
+---
+
+#### **Part B: JavaScript Validation Rules (`validator.js`)**
+
+Attach an external JavaScript script to handle the submission logic. Your validation script must satisfy the following constraints:
+
+1. **Prevent Default Submission:** Intercept the form’s submit event so the browser **does not** refresh or reload the page.
+
+
+2. **Input Sanitization & Field Checks:**
+* **Full Name:** Must not be blank (ignore leading/trailing whitespace).
+
+
+* **Campus Email:** Must match a standard email format (containing `@` and a valid domain like `.edu` or `.com`).
+
+
+* **Security Key (Password):** Must be **at least 8 characters long** AND contain **at least one numeric digit**.
+
+
+* **Telemetry Node:** Must have a valid option selected (cannot be left on the default placeholder option).
+
+
+
+
+3. **Dynamic Visual Feedback:**
+* If a field fails validation, highlight its border in **red**, make the corresponding error message visible, and hide the generic status message.
+
+
+* If a field passes validation, highlight its border in **green** and clear its error message.
+
+
+
+
+4. **Data Persistence Simulation:**
+* If **all fields** pass validation, group the verified user data into a JavaScript Object (`name`, `email`, `assignedNode`, `registeredAt`).
+
+
+* Save this object into browser memory using **`localStorage`** as a JSON string under the key `'signalDashUser'`.
+
+
+* Display a green success message at the bottom confirming account creation.
+
+
+
+
+
+---
+
+### 🧪 Student Output Verification Checklist
+
+Before submitting your lab exercise for evaluation, verify the following in your browser:
+
+* [ ] Clicking "Register Station Access" with empty fields shows red inline error messages without reloading the page.
+
+
+* [ ] Entering a password shorter than 8 characters or without a number triggers a password error.
+
+
+* [ ] Open **DevTools (F12)** $\rightarrow$ **Application Tab** $\rightarrow$ **Local Storage**: Check that valid form submissions create a clean `'signalDashUser'` JSON entry.

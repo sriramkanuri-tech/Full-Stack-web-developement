@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Understanding div tags</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       A <div> is just a generic BOX. It has no meaning of its own —
+       no built-in style, no special behavior. It's a container you
+       use to group things together and then style with CSS.
+
+       Everything below is built from nothing but <div> tags.
+       ============================================================ -->
+
+  <h2>A simple SignalDash sensor card, built only with divs</h2>
+
+  <!-- OUTER div: represents the whole card -->
+  <div class="card">
+
+    <!-- INNER div: groups the sensor's name and value together -->
+    <div class="sensor-info">
+      <div class="sensor-name">Temperature</div>
+      <div class="sensor-value">32.5°C</div>
+    </div>
+
+  </div>
+
+  <h2>Three plain divs, side by side</h2>
+
+  <!-- A div can also just be used to hold other divs in a row -->
+  <div class="row">
+    <div class="box">Temperature</div>
+    <div class="box">Pressure</div>
+    <div class="box">Humidity</div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+Task 3: 
+Question 1:
+Implement Layout with CSS (style.css)
+Use CSS Grid media queries to target canonical breakpoints:
+	Mobile (320px) up to 1 column, 
+	Tablet (768px) up to 2 columns, 
+	and Desktop (1024px) up to 3 columns.  
+	Style the interior of a metric card using Flexbox to align a parameter title (e.g., "Current Frequency") cleanly next to a simulated status light indicator.
+	
+Question 2: Responsive Telemetry Alert Feed (Flexbox & Grid)
+Design a Real-Time Telemetry Alert Feed layout for the SignalDash system.  
+Macro-Layout (CSS Grid): Construct a responsive grid container for active sensor alerts that renders a 1-column layout on mobile (<768px) and transitions to a 2-column grid on desktop (≥768px).  
+Micro-Layout (Flexbox): Each alert card must use Flexbox to arrange items horizontally: place a severity badge (e.g., CRITICAL, WARNING) aligned to the left, the sensor name and timestamp stretched across the center, and a "Acknowledge Alert" action button pushed cleanly to the far right.
+
+Question 3: Multi-Axis Sensor Readout Matrix (Flexbox, Grid & Box Model)Create a Sensor Telemetry Matrix component displaying live parameters (e.g., Temperature, Pressure, Voltage, Frequency).  
+Macro-Layout (CSS Grid): Build a dashboard section that uses CSS Grid to display 1 column on mobile (320px), 2 columns on tablet (768px), and a 4-column horizontal strip on widescreen displays (1280px).  
+Card Interior (Flexbox & Box Model): Using Flexbox inside each metric card, stack the Parameter Name on top, followed by a flex row containing the Live Value in bold monospace font next to its Unit Badge (e.g., °C, kPa, Hz). 
+Apply appropriate CSS Box Model properties (padding and border) to give each card a distinct dark-theme container look without overflowing.  

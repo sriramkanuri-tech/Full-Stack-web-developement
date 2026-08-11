@@ -1,0 +1,74 @@
+/* ============================================================
+   Base page styling — not part of the Box Model lesson itself,
+   just keeps the demo readable.
+   ============================================================ */
+.page {
+  font-family: Arial, sans-serif;
+  padding: 24px;
+  background-color: #f4f8fa;
+}
+
+.intro,
+.footnote {
+  color: #5b7c8d;
+  font-size: 14px;
+}
+
+.demo-row {
+  display: flex;       /* a preview of Flexbox from the last lab! */
+  align-items: flex-start;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: bold;
+  color: #1c7293;
+  margin: 0 0 8px 0;
+}
+
+.sensor-name {
+  margin: 0;
+  font-size: 14px;
+}
+
+.sensor-value {
+  margin: 4px 0 0 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: #f0a500;
+}
+
+/* ============================================================
+   STEP 1 — Content only.
+   No padding, no border, no margin declared.
+   The card's box is exactly the size of its content.
+   ============================================================ */
+.step-content-only {
+  background-color: #ffffff;
+}
+
+/* ============================================================
+   STEP 2 — Add Padding + Border.
+   Padding: 20px of empty space INSIDE the box, between the
+   content and the border — this is why the text no longer
+   touches the edge.
+   Border: a visible 3px line drawn around that padding.
+   ============================================================ */
+.step-padding-border {
+  background-color: #ffffff;
+  padding: 20px;
+  border: 3px solid #0b3d5c;
+}
+
+/* ============================================================
+   STEP 3 — Add Margin on top of everything from Step 2.
+   Margin: 24px of empty space OUTSIDE the border. It doesn't
+   change the card's own size — it changes how far the card
+   sits from whatever is next to it.
+   ============================================================ */
+.step-full-box-model {
+  background-color: #ffffff;
+  padding: 20px;
+  border: 3px solid #0b3d5c;
+  margin-left: 24px;
+}
