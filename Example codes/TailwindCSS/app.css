@@ -1,0 +1,53 @@
+.page {
+  font-family: Arial, sans-serif;
+  padding: 24px;
+  background-color: #f4f8fa;
+}
+
+.intro,
+.footnote {
+  color: #5b7c8d;
+  font-size: 14px;
+}
+
+/* ============================================================
+   MOBILE FIRST — the default rule, with no @media condition,
+   is written for the SMALLEST screens. One column, cards
+   stacked, matches a phone screen.
+   ============================================================ */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* ============================================================
+   TABLET — once the screen is at least 768px wide, switch
+   to 2 equal columns. Everything else about the grid
+   (the gap, the cards) stays exactly the same.
+   ============================================================ */
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ============================================================
+   DESKTOP — once the screen is at least 1024px wide, switch
+   to 3 equal columns. This is the "large monitor in the
+   control room" layout from the lab notes.
+   ============================================================ */
+@media (min-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.grid-card {
+  background-color: #1c7293;
+  color: #ffffff;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 4px;
+}
