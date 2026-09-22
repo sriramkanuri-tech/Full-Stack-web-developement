@@ -1,0 +1,13 @@
+# Use this workspace to collaborate
+workspace:
+  id: 39077e70-ef69-4c20-88ed-21fceef5a6f2
+
+localResources:
+  collections:
+    - ../Student Records API
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../Student Records API: 98765432-abcd-efgh-ijkl-123456789000

@@ -1,0 +1,12 @@
+$kind: http-request
+url: http://localhost:3000/api/v1/students/1
+method: PATCH
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "branch": "EEE"
+    }
+order: 4000
