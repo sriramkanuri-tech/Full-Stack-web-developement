@@ -1,94 +1,108 @@
 import React, { useState } from "react";
+import "./App.css";
 
 const API = "http://localhost:3000/api/v1";
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [page, setPage] = useState("GET");
+
   const [students, setStudents] = useState([]);
 
-  const [studentId, setStudentId] = useState("");
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [branch, setBranch] = useState("");
 
-  const [result, setResult] = useState("");
+  const [response, setResponse] = useState("");
+  const [status, setStatus] = useState("");
 
-  // ======================================================
-  // GET MESSAGE
-  // ======================================================
+  // =====================================================
+  // CLEAR FORM
+  // =====================================================
 
-  const fetchMessage = async () => {
-    try {
-      const response = await fetch(`${API}/message`);
-
-      const data = await response.json();
-
-      setMessage(data.text);
-      setResult("Message fetched successfully");
-    } catch (error) {
-      setResult("Error fetching message");
-      console.error(error);
-    }
+  const clearForm = () => {
+    setId("");
+    setName("");
+    setBranch("");
+    setResponse("");
+    setStatus("");
   };
 
-  // ======================================================
+  // =====================================================
+  // CHANGE PAGE
+  // =====================================================
+
+  const changePage = (newPage) => {
+    setPage(newPage);
+    clearForm();
+    setStudents([]);
+  };
+
+  // =====================================================
   // GET ALL STUDENTS
-  // ======================================================
+  // =====================================================
 
-  const fetchStudents = async () => {
+  const getAllStudents = async () => {
     try {
-      const response = await fetch(`${API}/students`);
+      const res = await fetch(`${API}/students`);
 
-      const data = await response.json();
+      const data = await res.json();
 
       setStudents(data);
-      setResult("Students fetched successfully");
+
+      setStatus(`${res.status} ${res.statusText}`);
+
+      setResponse(JSON.stringify(data, null, 2));
     } catch (error) {
-      setResult("Error fetching students");
-      console.error(error);
+      setStatus("ERROR");
+
+      setResponse(error.message);
     }
   };
 
-  // ======================================================
+  // =====================================================
   // GET STUDENT BY ID
-  // ======================================================
+  // =====================================================
 
-  const fetchStudentById = async () => {
-    if (!studentId) {
-      setResult("Please enter student ID");
+  const getStudent = async () => {
+    if (!id) {
+      setStatus("ERROR");
+      setResponse("Please enter Student ID");
       return;
     }
 
     try {
-      const response = await fetch(`${API}/students/${studentId}`);
+      const res = await fetch(`${API}/students/${id}`);
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (!response.ok) {
-        setResult(data.message);
-        return;
+      setStatus(`${res.status} ${res.statusText}`);
+
+      setResponse(JSON.stringify(data, null, 2));
+
+      if (res.ok) {
+        setStudents([data]);
+      } else {
+        setStudents([]);
       }
-
-      setStudents([data]);
-
-      setResult("Student fetched successfully");
     } catch (error) {
-      setResult("Error fetching student");
-      console.error(error);
+      setStatus("ERROR");
+      setResponse(error.message);
     }
   };
 
-  // ======================================================
+  // =====================================================
   // POST - ADD STUDENT
-  // ======================================================
+  // =====================================================
 
   const addStudent = async () => {
     if (!name || !branch) {
-      setResult("Please enter name and branch");
+      setStatus("ERROR");
+      setResponse("Name and Branch are required");
       return;
     }
 
     try {
-      const response = await fetch(`${API}/students`, {
+      const res = await fetch(`${API}/students`, {
         method: "POST",
 
         headers: {
@@ -96,77 +110,84 @@ function App() {
         },
 
         body: JSON.stringify({
-          name: name,
-          branch: branch,
+          name,
+          branch,
         }),
       });
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (!response.ok) {
-        setResult(data.message);
-        return;
+      setStatus(`${res.status} ${res.statusText}`);
+
+      setResponse(JSON.stringify(data, null, 2));
+
+      if (res.ok) {
+        setName("");
+        setBranch("");
       }
-
-      setResult(data.message);
-
-      setName("");
-      setBranch("");
-
-      fetchStudents();
     } catch (error) {
-      setResult("Error adding student");
-      console.error(error);
+      setStatus("ERROR");
+      setResponse(error.message);
     }
   };
 
-  // ======================================================
-  // PUT - UPDATE COMPLETE STUDENT
-  // ======================================================
+  // =====================================================
+  // PUT - COMPLETE UPDATE
+  // =====================================================
 
-  const updateStudent = async () => {
-    if (!studentId || !name || !branch) {
-      setResult("Please enter ID, name and branch");
+  const putStudent = async () => {
+    if (!id || !name || !branch) {
+      setStatus("ERROR");
+      setResponse(
+        "Student ID, Name and Branch are required"
+      );
       return;
     }
 
     try {
-      const response = await fetch(`${API}/students/${studentId}`, {
-        method: "PUT",
+      const res = await fetch(
+        `${API}/students/${id}`,
+        {
+          method: "PUT",
 
-        headers: {
-          "Content-Type": "application/json",
-        },
+          headers: {
+            "Content-Type": "application/json",
+          },
 
-        body: JSON.stringify({
-          name: name,
-          branch: branch,
-        }),
-      });
+          body: JSON.stringify({
+            name,
+            branch,
+          }),
+        }
+      );
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (!response.ok) {
-        setResult(data.message);
-        return;
-      }
+      setStatus(`${res.status} ${res.statusText}`);
 
-      setResult(data.message);
-
-      fetchStudents();
+      setResponse(JSON.stringify(data, null, 2));
     } catch (error) {
-      setResult("Error updating student");
-      console.error(error);
+      setStatus("ERROR");
+      setResponse(error.message);
     }
   };
 
-  // ======================================================
+  // =====================================================
   // PATCH - PARTIAL UPDATE
-  // ======================================================
+  // =====================================================
 
   const patchStudent = async () => {
-    if (!studentId) {
-      setResult("Please enter student ID");
+    if (!id) {
+      setStatus("ERROR");
+      setResponse("Student ID is required");
+      return;
+    }
+
+    if (!name && !branch) {
+      setStatus("ERROR");
+      setResponse(
+        "Enter Name or Branch to update"
+      );
       return;
     }
 
@@ -180,230 +201,890 @@ function App() {
       updateData.branch = branch;
     }
 
-    if (Object.keys(updateData).length === 0) {
-      setResult("Enter name or branch to update");
-      return;
-    }
-
     try {
-      const response = await fetch(`${API}/students/${studentId}`, {
-        method: "PATCH",
+      const res = await fetch(
+        `${API}/students/${id}`,
+        {
+          method: "PATCH",
 
-        headers: {
-          "Content-Type": "application/json",
-        },
+          headers: {
+            "Content-Type": "application/json",
+          },
 
-        body: JSON.stringify(updateData),
-      });
+          body: JSON.stringify(updateData),
+        }
+      );
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (!response.ok) {
-        setResult(data.message);
-        return;
-      }
+      setStatus(`${res.status} ${res.statusText}`);
 
-      setResult(data.message);
-
-      fetchStudents();
+      setResponse(JSON.stringify(data, null, 2));
     } catch (error) {
-      setResult("Error partially updating student");
-      console.error(error);
+      setStatus("ERROR");
+      setResponse(error.message);
     }
   };
 
-  // ======================================================
-  // DELETE STUDENT
-  // ======================================================
+  // =====================================================
+  // DELETE
+  // =====================================================
 
   const deleteStudent = async () => {
-    if (!studentId) {
-      setResult("Please enter student ID");
+    if (!id) {
+      setStatus("ERROR");
+      setResponse("Please enter Student ID");
+      return;
+    }
+
+    const confirmDelete = window.confirm(
+      `Delete student with ID ${id}?`
+    );
+
+    if (!confirmDelete) {
       return;
     }
 
     try {
-      const response = await fetch(`${API}/students/${studentId}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${API}/students/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (!response.ok) {
-        setResult(data.message);
-        return;
+      setStatus(`${res.status} ${res.statusText}`);
+
+      setResponse(JSON.stringify(data, null, 2));
+
+      if (res.ok) {
+        setId("");
       }
-
-      setResult(data.message);
-
-      setStudentId("");
-
-      fetchStudents();
     } catch (error) {
-      setResult("Error deleting student");
-      console.error(error);
+      setStatus("ERROR");
+      setResponse(error.message);
     }
   };
 
-  // ======================================================
-  // FRONTEND
-  // ======================================================
+  // =====================================================
+  // GET PAGE
+  // =====================================================
+
+  const renderGetPage = () => {
+    return (
+      <>
+        <PageHeader
+          method="GET"
+          title="Get Student Records"
+          description="Retrieve student records from the database."
+        />
+
+        <div className="method-card">
+
+          <div className="method-card-title">
+            <span className="method-badge get">
+              GET
+            </span>
+
+            <span>
+              Get All Students
+            </span>
+          </div>
+
+          <p className="help-text">
+            Retrieve all student records.
+          </p>
+
+          <button
+            className="primary-button"
+            onClick={getAllStudents}
+          >
+            Get All Students
+          </button>
+
+        </div>
+
+        <div className="method-card">
+
+          <div className="method-card-title">
+            <span className="method-badge get">
+              GET
+            </span>
+
+            <span>
+              Get Student By ID
+            </span>
+          </div>
+
+          <div className="form-group">
+
+            <label>
+              Student ID
+            </label>
+
+            <input
+              type="number"
+              placeholder="Enter student ID"
+              value={id}
+              onChange={(e) =>
+                setId(e.target.value)
+              }
+            />
+
+          </div>
+
+          <button
+            className="primary-button"
+            onClick={getStudent}
+          >
+            Get Student
+          </button>
+
+        </div>
+
+        <StudentTable />
+      </>
+    );
+  };
+
+  // =====================================================
+  // POST PAGE
+  // =====================================================
+
+  const renderPostPage = () => {
+    return (
+      <>
+        <PageHeader
+          method="POST"
+          title="Add Student"
+          description="Create a new student record."
+        />
+
+        <div className="method-card">
+
+          <div className="method-card-title">
+            <span className="method-badge post">
+              POST
+            </span>
+
+            <span>
+              Create New Student
+            </span>
+          </div>
+
+          <div className="form-grid">
+
+            <div className="form-group">
+
+              <label>
+                Student Name
+              </label>
+
+              <input
+                type="text"
+                placeholder="Enter student name"
+                value={name}
+                onChange={(e) =>
+                  setName(e.target.value)
+                }
+              />
+
+            </div>
+
+            <div className="form-group">
+
+              <label>
+                Branch
+              </label>
+
+              <select
+                value={branch}
+                onChange={(e) =>
+                  setBranch(e.target.value)
+                }
+              >
+                <option value="">
+                  Select branch
+                </option>
+
+                <option value="ECE">
+                  ECE
+                </option>
+
+                <option value="CSE">
+                  CSE
+                </option>
+
+                <option value="AIML">
+                  AIML
+                </option>
+
+                <option value="EEE">
+                  EEE
+                </option>
+
+                <option value="MECH">
+                  MECH
+                </option>
+
+                <option value="CIVIL">
+                  CIVIL
+                </option>
+              </select>
+
+            </div>
+
+          </div>
+
+          <button
+            className="primary-button"
+            onClick={addStudent}
+          >
+            Add Student
+          </button>
+
+        </div>
+
+        <Response />
+      </>
+    );
+  };
+
+  // =====================================================
+  // PUT PAGE
+  // =====================================================
+
+  const renderPutPage = () => {
+    return (
+      <>
+        <PageHeader
+          method="PUT"
+          title="Update Student"
+          description="Completely update an existing student record."
+        />
+
+        <div className="method-card">
+
+          <div className="method-card-title">
+
+            <span className="method-badge put">
+              PUT
+            </span>
+
+            <span>
+              Complete Student Update
+            </span>
+
+          </div>
+
+          <div className="form-grid">
+
+            <div className="form-group">
+
+              <label>
+                Student ID
+              </label>
+
+              <input
+                type="number"
+                placeholder="Enter student ID"
+                value={id}
+                onChange={(e) =>
+                  setId(e.target.value)
+                }
+              />
+
+            </div>
+
+            <div className="form-group">
+
+              <label>
+                Student Name
+              </label>
+
+              <input
+                type="text"
+                placeholder="Enter new name"
+                value={name}
+                onChange={(e) =>
+                  setName(e.target.value)
+                }
+              />
+
+            </div>
+
+            <div className="form-group">
+
+              <label>
+                Branch
+              </label>
+
+              <select
+                value={branch}
+                onChange={(e) =>
+                  setBranch(e.target.value)
+                }
+              >
+                <option value="">
+                  Select branch
+                </option>
+
+                <option value="ECE">
+                  ECE
+                </option>
+
+                <option value="CSE">
+                  CSE
+                </option>
+
+                <option value="AIML">
+                  AIML
+                </option>
+
+                <option value="EEE">
+                  EEE
+                </option>
+
+                <option value="MECH">
+                  MECH
+                </option>
+
+                <option value="CIVIL">
+                  CIVIL
+                </option>
+              </select>
+
+            </div>
+
+          </div>
+
+          <div className="info-box">
+            PUT requires the complete student
+            information: ID, Name and Branch.
+          </div>
+
+          <button
+            className="primary-button"
+            onClick={putStudent}
+          >
+            Update Student
+          </button>
+
+        </div>
+
+        <Response />
+      </>
+    );
+  };
+
+  // =====================================================
+  // PATCH PAGE
+  // =====================================================
+
+  const renderPatchPage = () => {
+    return (
+      <>
+        <PageHeader
+          method="PATCH"
+          title="Partial Update"
+          description="Update one or more fields of an existing student."
+        />
+
+        <div className="method-card">
+
+          <div className="method-card-title">
+
+            <span className="method-badge patch">
+              PATCH
+            </span>
+
+            <span>
+              Partial Student Update
+            </span>
+
+          </div>
+
+          <div className="form-grid">
+
+            <div className="form-group">
+
+              <label>
+                Student ID
+              </label>
+
+              <input
+                type="number"
+                placeholder="Enter student ID"
+                value={id}
+                onChange={(e) =>
+                  setId(e.target.value)
+                }
+              />
+
+            </div>
+
+            <div className="form-group">
+
+              <label>
+                New Name
+              </label>
+
+              <input
+                type="text"
+                placeholder="Leave empty to keep current"
+                value={name}
+                onChange={(e) =>
+                  setName(e.target.value)
+                }
+              />
+
+            </div>
+
+            <div className="form-group">
+
+              <label>
+                New Branch
+              </label>
+
+              <select
+                value={branch}
+                onChange={(e) =>
+                  setBranch(e.target.value)
+                }
+              >
+                <option value="">
+                  Keep current branch
+                </option>
+
+                <option value="ECE">
+                  ECE
+                </option>
+
+                <option value="CSE">
+                  CSE
+                </option>
+
+                <option value="AIML">
+                  AIML
+                </option>
+
+                <option value="EEE">
+                  EEE
+                </option>
+
+                <option value="MECH">
+                  MECH
+                </option>
+
+                <option value="CIVIL">
+                  CIVIL
+                </option>
+              </select>
+
+            </div>
+
+          </div>
+
+          <div className="info-box">
+            PATCH lets you change only the fields
+            you provide. Leave a field empty to
+            keep its existing value.
+          </div>
+
+          <button
+            className="primary-button"
+            onClick={patchStudent}
+          >
+            Partially Update Student
+          </button>
+
+        </div>
+
+        <Response />
+      </>
+    );
+  };
+
+  // =====================================================
+  // DELETE PAGE
+  // =====================================================
+
+  const renderDeletePage = () => {
+    return (
+      <>
+        <PageHeader
+          method="DELETE"
+          title="Delete Student"
+          description="Remove a student record from the system."
+        />
+
+        <div className="method-card delete-card">
+
+          <div className="method-card-title">
+
+            <span className="method-badge delete">
+              DELETE
+            </span>
+
+            <span>
+              Delete Student Record
+            </span>
+
+          </div>
+
+          <div className="warning-box">
+
+            <strong>
+              ⚠ Warning
+            </strong>
+
+            <p>
+              Deleting a student permanently removes
+              the record from the current server data.
+            </p>
+
+          </div>
+
+          <div className="form-group">
+
+            <label>
+              Student ID
+            </label>
+
+            <input
+              type="number"
+              placeholder="Enter student ID to delete"
+              value={id}
+              onChange={(e) =>
+                setId(e.target.value)
+              }
+            />
+
+          </div>
+
+          <button
+            className="delete-button"
+            onClick={deleteStudent}
+          >
+            Delete Student
+          </button>
+
+        </div>
+
+        <Response />
+      </>
+    );
+  };
+
+  // =====================================================
+  // RESPONSE COMPONENT
+  // =====================================================
+
+  function Response() {
+    if (!response) {
+      return null;
+    }
+
+    return (
+      <div className="response-card">
+
+        <div className="response-header">
+
+          <div>
+            <h3>
+              Response
+            </h3>
+
+            <span>
+              Server response
+            </span>
+          </div>
+
+          <span
+            className={
+              status.startsWith("2")
+                ? "status success"
+                : "status error"
+            }
+          >
+            {status}
+          </span>
+
+        </div>
+
+        <pre>
+          {response}
+        </pre>
+
+      </div>
+    );
+  }
+
+  // =====================================================
+  // STUDENT TABLE
+  // =====================================================
+
+  function StudentTable() {
+    if (students.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="table-card">
+
+        <div className="table-header">
+
+          <div>
+            <h3>
+              Student Records
+            </h3>
+
+            <span>
+              {students.length} record(s)
+            </span>
+          </div>
+
+        </div>
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Branch</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            {students.map((student) => (
+
+              <tr key={student.id}>
+
+                <td>
+                  #{student.id}
+                </td>
+
+                <td>
+                  {student.name}
+                </td>
+
+                <td>
+                  <span className="branch">
+                    {student.branch}
+                  </span>
+                </td>
+
+              </tr>
+
+            ))}
+
+          </tbody>
+
+        </table>
+
+      </div>
+    );
+  }
+
+  // =====================================================
+  // PAGE
+  // =====================================================
 
   return (
-    <div
-      style={{
-        padding: "30px",
-        fontFamily: "Arial",
-        maxWidth: "900px",
-        margin: "auto",
-      }}
-    >
-      <h1 style={{ color: "blue" }}>
-        Student REST API
-      </h1>
+    <div className="app">
 
-      <hr />
+      {/* SIDEBAR */}
 
-      {/* GET MESSAGE */}
+      <aside className="sidebar">
 
-      <h2>GET Requests</h2>
+        <div className="logo">
 
-      <button onClick={fetchMessage}>
-        GET Message
-      </button>
+          <div className="logo-icon">
+            🎓
+          </div>
 
-      <button
-        onClick={fetchStudents}
-        style={{ marginLeft: "10px" }}
-      >
-        GET All Students
-      </button>
+          <div>
+            <h2>
+              Student API
+            </h2>
 
-      <br />
-      <br />
+            <span>
+              Record Management
+            </span>
+          </div>
 
-      {/* GET BY ID */}
+        </div>
 
-      <input
-        type="number"
-        placeholder="Student ID"
-        value={studentId}
-        onChange={(e) => setStudentId(e.target.value)}
-      />
+        <div className="menu-title">
+          HTTP METHODS
+        </div>
 
-      <button
-        onClick={fetchStudentById}
-        style={{ marginLeft: "10px" }}
-      >
-        GET Student
-      </button>
+        <button
+          className={`menu-item ${
+            page === "GET" ? "active" : ""
+          }`}
+          onClick={() =>
+            changePage("GET")
+          }
+        >
+          <span className="side-method get">
+            GET
+          </span>
 
-      <hr />
+          <span>
+            Get Records
+          </span>
+        </button>
 
-      {/* INPUTS */}
+        <button
+          className={`menu-item ${
+            page === "POST" ? "active" : ""
+          }`}
+          onClick={() =>
+            changePage("POST")
+          }
+        >
+          <span className="side-method post">
+            POST
+          </span>
 
-      <h2>Student Details</h2>
+          <span>
+            Add Student
+          </span>
+        </button>
 
-      <input
-        type="text"
-        placeholder="Student Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        style={{
-          padding: "8px",
-          marginRight: "10px",
-        }}
-      />
+        <button
+          className={`menu-item ${
+            page === "PUT" ? "active" : ""
+          }`}
+          onClick={() =>
+            changePage("PUT")
+          }
+        >
+          <span className="side-method put">
+            PUT
+          </span>
 
-      <input
-        type="text"
-        placeholder="Branch"
-        value={branch}
-        onChange={(e) => setBranch(e.target.value)}
-        style={{
-          padding: "8px",
-        }}
-      />
+          <span>
+            Update Student
+          </span>
+        </button>
 
-      <br />
-      <br />
+        <button
+          className={`menu-item ${
+            page === "PATCH" ? "active" : ""
+          }`}
+          onClick={() =>
+            changePage("PATCH")
+          }
+        >
+          <span className="side-method patch">
+            PATCH
+          </span>
 
-      {/* POST */}
+          <span>
+            Partial Update
+          </span>
+        </button>
 
-      <button onClick={addStudent}>
-        POST Add Student
-      </button>
+        <button
+          className={`menu-item ${
+            page === "DELETE" ? "active" : ""
+          }`}
+          onClick={() =>
+            changePage("DELETE")
+          }
+        >
+          <span className="side-method delete">
+            DELETE
+          </span>
 
-      {/* PUT */}
+          <span>
+            Delete Student
+          </span>
+        </button>
 
-      <button
-        onClick={updateStudent}
-        style={{ marginLeft: "10px" }}
-      >
-        PUT Update
-      </button>
+        <div className="sidebar-footer">
 
-      {/* PATCH */}
+          <div>
+            <span className="online"></span>
+            API Server Online
+          </div>
 
-      <button
-        onClick={patchStudent}
-        style={{ marginLeft: "10px" }}
-      >
-        PATCH Update
-      </button>
+          <small>
+            localhost:3000
+          </small>
 
-      {/* DELETE */}
+        </div>
 
-      <button
-        onClick={deleteStudent}
-        style={{
-          marginLeft: "10px",
-          backgroundColor: "red",
-          color: "white",
-          border: "none",
-          padding: "8px 12px",
-        }}
-      >
-        DELETE
-      </button>
+      </aside>
 
-      <hr />
+      {/* MAIN */}
 
-      {/* MESSAGE */}
+      <main className="main">
 
-      {message && (
-        <h3>
-          Backend: {message}
-        </h3>
-      )}
+        {page === "GET" &&
+          renderGetPage()}
 
-      {/* RESULT */}
+        {page === "POST" &&
+          renderPostPage()}
 
-      {result && (
+        {page === "PUT" &&
+          renderPutPage()}
+
+        {page === "PATCH" &&
+          renderPatchPage()}
+
+        {page === "DELETE" &&
+          renderDeletePage()}
+
+      </main>
+
+    </div>
+  );
+}
+
+
+// =====================================================
+// PAGE HEADER COMPONENT
+// =====================================================
+
+function PageHeader({
+  method,
+  title,
+  description,
+}) {
+  return (
+    <div className="page-header">
+
+      <div>
+
+        <div className="breadcrumb">
+          Student API / {method}
+        </div>
+
+        <h1>
+          {title}
+        </h1>
+
         <p>
-          <strong>Result:</strong> {result}
+          {description}
         </p>
-      )}
 
-      {/* STUDENTS */}
+      </div>
 
-      <h2>Students</h2>
+      <span
+        className={`large-method ${method.toLowerCase()}`}
+      >
+        {method}
+      </span>
 
-      {students.length === 0 ? (
-        <p>No students loaded.</p>
-      ) : (
-        <ul>
-          {students.map((student) => (
-            <li key={student.id}>
-              <strong>ID:</strong> {student.id}
-              {" | "}
-              <strong>Name:</strong> {student.name}
-              {" | "}
-              <strong>Branch:</strong> {student.branch}
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 }
