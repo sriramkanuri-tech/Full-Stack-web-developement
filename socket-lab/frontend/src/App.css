@@ -1,184 +1,414 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
-
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
-}
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
+* {
+  margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background: #f4f7fb;
+
+  color: #1f2937;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+
+  background: white;
+
+  padding: 30px 50px;
+
   display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header h1 {
+
+  font-size: 30px;
+
+  margin-bottom: 8px;
+}
+
+.header p {
+
+  color: #6b7280;
+
+  font-size: 15px;
+}
+
+/* =========================================
+   CONNECTION
+========================================= */
+
+.connection {
+
+  padding: 10px 18px;
+
+  border-radius: 25px;
+
+  display: flex;
+
+  align-items: center;
+
   gap: 8px;
-  margin: 32px 0 0;
 
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+  font-weight: 600;
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+.connected {
+
+  background: #dcfce7;
+
+  color: #166534;
 }
 
-.ticks {
-  position: relative;
-  width: 100%;
+.disconnected {
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
+  background: #fee2e2;
+
+  color: #991b1b;
+}
+
+.status-dot {
+
+  width: 10px;
+
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+}
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+.controls {
+
+  background: white;
+
+  margin: 30px 50px;
+
+  padding: 25px;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+.controls h2 {
+
+  margin-bottom: 20px;
+
+  font-size: 20px;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.button-container {
+
+  display: flex;
+
+  gap: 15px;
+
+  flex-wrap: wrap;
+}
+
+.sensor-button {
+
+  border: 2px solid #e5e7eb;
+
+  background: white;
+
+  color: #374151;
+
+  padding: 15px 25px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  transition: all 0.2s ease;
+}
+
+.sensor-button span {
+
+  font-size: 22px;
+}
+
+.sensor-button:hover {
+
+  border-color: #2563eb;
+
+  transform: translateY(-2px);
+}
+
+.sensor-button.active {
+
+  background: #2563eb;
+
+  color: white;
+
+  border-color: #2563eb;
+
+  box-shadow:
+    0 5px 15px rgba(37, 99, 235, 0.3);
+}
+
+/* =========================================
+   DASHBOARD
+========================================= */
+
+.dashboard {
+
+  margin: 0 50px 50px;
+}
+
+.dashboard-header {
+
+  background: white;
+
+  padding: 25px 30px;
+
+  border-radius: 16px 16px 0 0;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.dashboard-header h2 {
+
+  font-size: 25px;
+
+  margin-bottom: 6px;
+}
+
+.dashboard-header p {
+
+  color: #6b7280;
+}
+
+.room-count {
+
+  background: #eef2ff;
+
+  color: #4338ca;
+
+  padding: 8px 15px;
+
+  border-radius: 20px;
+
+  font-weight: 600;
+}
+
+/* =========================================
+   ROOMS
+========================================= */
+
+.rooms {
+
+  padding: 30px;
+
+  background: #f9fafb;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 25px;
+
+  border-radius: 0 0 16px 16px;
+}
+
+/* =========================================
+   ROOM CARD
+========================================= */
+
+.room-card {
+
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.07);
+
+  transition: transform 0.2s;
+}
+
+.room-card:hover {
+
+  transform: translateY(-5px);
+}
+
+.room-top {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 25px;
+}
+
+.room-label {
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: #4b5563;
+}
+
+.live {
+
+  font-size: 12px;
+
+  color: #16a34a;
+
+  font-weight: 700;
+}
+
+/* =========================================
+   ICON
+========================================= */
+
+.room-icon {
+
+  font-size: 50px;
+
+  margin-bottom: 15px;
+}
+
+.room-card h3 {
+
+  color: #6b7280;
+
+  font-size: 16px;
+
+  margin-bottom: 10px;
+}
+
+/* =========================================
+   VALUE
+========================================= */
+
+.value {
+
+  font-size: 38px;
+
+  font-weight: 700;
+
+  color: #111827;
+
+  margin-bottom: 15px;
+}
+
+.value span {
+
+  font-size: 20px;
+
+  color: #6b7280;
+}
+
+/* =========================================
+   ROOM STATUS
+========================================= */
+
+.room-status {
+
+  padding-top: 15px;
+
+  border-top: 1px solid #e5e7eb;
+
+  color: #16a34a;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+
+  text-align: center;
+
+  padding: 30px;
+
+  color: #9ca3af;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+  .header {
+
+    padding: 25px;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 20px;
   }
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
+  .controls {
+
+    margin: 25px;
   }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
+
+  .dashboard {
+
+    margin: 0 25px 30px;
+  }
+
+  .rooms {
+
+    grid-template-columns: 1fr;
+
   }
 }
